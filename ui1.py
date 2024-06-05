@@ -1,17 +1,7 @@
 import streamlit as st
-import tensorflow as tf
 from matplotlib import pyplot as plt
-from tensorflow.keras.models import load_model # type: ignore
 from PIL import Image
-import numpy as np
 import joblib
-import torch
-from model import SENet, MLP
-import cv2
-from sklearn.decomposition import PCA
-from skimage.feature import hog
-from torchvision import transforms
-from keras.datasets import cifar100
 img_url = 'https://img.zcool.cn/community/0156cb59439764a8012193a324fdaa.gif'  # 背景图片的网址
 st.markdown('''<style>.css-fg4pbf{background-image:url(''' + img_url + ''');
 background-size:100% 100%;background-attachment:fixed;}</style>
@@ -56,9 +46,9 @@ model_1 = joblib.load('朴素贝叶斯模型 .pkl')
 # model_2 = joblib.load('逻辑回归模型 .pkl')
 model_3 = joblib.load('KNN模型 .pkl')
 
-model_4 = SENet()
+#model_4 = SENet()
 #model_4.load_state_dict(torch.load('best_model.pth'))
-model_4.eval()
+#model_4.eval()
 
 
 # 定义模型字典
@@ -66,40 +56,8 @@ models = {
     '朴素贝叶斯': model_1,
     # '实逻辑回归': model_2,
     ' KNN模型 ': model_3,
-    '深度学习模型': model_4
 }
 
-# 定义HOG特征提取函数
-def extract_hog_features(image):
-    gray_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
-    hog_features = hog(gray_image, pixels_per_cell=(8, 8), cells_per_block=(2, 2), feature_vector=True)
-    return hog_features
-
-
-# 预处理图像并提取HOG特征
-def preprocess_image(image):
-    hog_features = extract_hog_features(image)
-    hog_features = hog_features.reshape(1, -1)
-
-    #pca = PCA(n_components=50)
-    #reduced_features = pca.fit_transform(hog_features)
-
-    reduced_features = hog_features[:, :50]
-    return reduced_features
-
-
-transform = transforms.Compose([
-    transforms.Resize((32, 32)),
-    transforms.ToTensor(),
-    transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761))
-])
-def procImg(image):
-    image = transform(image)
-    return image.unsqueeze(0)
-
-
-# 导入所需模块
-import matplotlib.pyplot as plt
 
 # 创建包含数据的字典
 data = {
