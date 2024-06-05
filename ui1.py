@@ -1,7 +1,6 @@
 import streamlit as st
 from matplotlib import pyplot as plt
 from PIL import Image
-import joblib
 img_url = 'https://img.zcool.cn/community/0156cb59439764a8012193a324fdaa.gif'  # 背景图片的网址
 st.markdown('''<style>.css-fg4pbf{background-image:url(''' + img_url + ''');
 background-size:100% 100%;background-attachment:fixed;}</style>
@@ -42,13 +41,15 @@ def show_accuracy_image():
 # 在侧边栏创建一个按钮
 st.sidebar.button('显示准确率图', on_click=show_accuracy_image)
 # 加载预训练的模型参数
-model_1 = joblib.load('朴素贝叶斯模型 .pkl')
-# model_2 = joblib.load('逻辑回归模型 .pkl')
-model_3 = joblib.load('KNN模型 .pkl')
+import pickle
 
-#model_4 = SENet()
-#model_4.load_state_dict(torch.load('best_model.pth'))
-#model_4.eval()
+# 使用pickle加载朴素贝叶斯模型
+with open('朴素贝叶斯模型.pkl', 'rb') as file:
+    model_1 = pickle.load(file)
+
+# 如果需要的话，也可以用同样的方式加载其他模型，比如KNN模型
+with open('KNN模型.pkl', 'rb') as file:
+    model_3 = pickle.load(file)
 
 
 # 定义模型字典
