@@ -18,8 +18,6 @@ elif algorithm == 'KNN':
     st.write('您选择了K最近邻算法。')
 elif algorithm == '朴素贝叶斯':
     st.write('您选择了朴素贝叶斯算法。')
-with open('classes.txt', 'r') as f:
-    cat = f.readlines()
 
 minmaxscaler = st.sidebar.radio('2.是否持久化模型：', ['是', '否'])
 
@@ -40,24 +38,7 @@ def show_accuracy_image():
     st.image("1.png", caption='损失函数', use_column_width=True)
 # 在侧边栏创建一个按钮
 st.sidebar.button('显示准确率图', on_click=show_accuracy_image)
-# 加载预训练的模型参数
-import pickle
 
-# 使用pickle加载朴素贝叶斯模型
-with open('朴素贝叶斯模型.pkl', 'rb') as file:
-    model_1 = pickle.load(file)
-
-# 如果需要的话，也可以用同样的方式加载其他模型，比如KNN模型
-with open('KNN模型.pkl', 'rb') as file:
-    model_3 = pickle.load(file)
-
-
-# 定义模型字典
-models = {
-    '朴素贝叶斯': model_1,
-    # '实逻辑回归': model_2,
-    ' KNN模型 ': model_3,
-}
 
 
 # 创建包含数据的字典
