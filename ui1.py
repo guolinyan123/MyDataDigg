@@ -5,7 +5,12 @@ img_url = 'https://img.zcool.cn/community/0156cb59439764a8012193a324fdaa.gif'  #
 st.markdown('''<style>.css-fg4pbf{background-image:url(''' + img_url + ''');
 background-size:100% 100%;background-attachment:fixed;}</style>
 ''', unsafe_allow_html=True)  # 修改背景样式
+def main():
+    st.write("姓名：郭林艳")
+    st.write("学号：2109120104")
 
+if __name__ == '__main__':
+    main()
 st.title('CIFAR-100数据集的分类任务')
 
 # 在侧边栏创建一个选择框，用于选择算法
